@@ -29,16 +29,16 @@ namespace SampleWebApi.Controllers
 
         // GET: api/EmployeeDetails/5
         [HttpGet("{id}")]
-        public  ActionResult<EmployeeDetails> GetEmployeeDetails(int id)
+        public async Task<IActionResult> GetEmployeeDetails(int id)
         {
             var employeeDetails =  _context.EmployeeDetails.SingleOrDefault(e=> e.EmpId ==id);
 
             if (employeeDetails == null)
             {
-                return  NotFound();
+                return  Ok("data not found");
             }
 
-            return employeeDetails;
+            return Ok(employeeDetails);
         }
 
         // PUT: api/EmployeeDetails/5

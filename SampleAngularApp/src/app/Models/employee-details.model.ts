@@ -1,6 +1,6 @@
 export class EmployeeDetails {
     Id: number;
-    DOB: Date;
+    DOB: string;
     Address: string;
     City: string;
     State: string;

@@ -1,5 +1,5 @@
 <ng-container *ngIf="_empDetailService.userDetailsFlag; else elseTemplate">
-  <p>user details availble please check in view details</p>
+  <p>user details availble please check in<a  [routerLink]="[ '/employeedetails/viewEmp' ]"> view details</a></p>
 </ng-container>
 <ng-template #elseTemplate>
  <div class="jumbotron container row col-md-8 offset-md-4">
@@ -9,7 +9,7 @@
 
     <div class="form-group" [formGroup]="_empDetailService.empData">
       <label>DOB</label>
-      <input type="text" formControlName="DOB" class="form-control"
+      <input type="date" formControlName="DOB" class="form-control"
         [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.DOB.errors }">
       <div *ngIf="submitted && _empDetailService.f.DOB.errors" class="invalid-feedback">
         <div *ngIf="_empDetailService.f.DOB.errors.required">Date of Birth is required</div>

@@ -53,14 +53,14 @@ namespace SampleWebApi
                         .AllowAnyMethod()
                         );
 
-            app.Use(async (ctx, next) =>
-            {
-                await next();
-                if (ctx.Response.StatusCode == 204)
-                {
-                    ctx.Response.ContentLength = 0;
-                }
-            });
+            //app.Use(async (ctx, next) =>
+            //{
+            //    await next();
+            //    if (ctx.Response.StatusCode == 204)
+            //    {
+            //        ctx.Response.ContentLength = 0;
+            //    }
+            //});
 
 
             app.UseHttpsRedirection();

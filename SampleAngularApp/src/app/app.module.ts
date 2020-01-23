@@ -3,11 +3,14 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule, routingComponents } from "./app-routing.module";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { ToastrModule } from'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from "./app.component";
 import { EmployeeService } from "./Services/employee.service";
 import { EmployeedetailsModule } from "./employeedetails/employeedetails.module";
 import { AuthguardService } from "./authguard/authguard.service";
+
 
 @NgModule({
   declarations: [AppComponent, routingComponents],
@@ -17,7 +20,9 @@ import { AuthguardService } from "./authguard/authguard.service";
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    EmployeedetailsModule
+    EmployeedetailsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [EmployeeService, AuthguardService],
   bootstrap: [AppComponent]

@@ -5,6 +5,8 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { EmployeeDetails } from "../Models/employee-details.model";
 import { Observable } from "rxjs";
+import { ToastrService } from 'ngx-toastr';
+// import 'rxjs/add/operator/catch';
 
 @Injectable({
   providedIn: "root"
@@ -15,10 +17,12 @@ export class EmployeeDetailsService {
   user = JSON.parse(sessionStorage.getItem("user"));
   readonly apiUrl = environment.apiUrl;
   userDetailsFlag: boolean = false;
+  employedet:EmployeeDetails;
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr:ToastrService
   ) {
     this.empData = fb.group({
       DOB: ["", Validators.required],
@@ -42,20 +46,23 @@ export class EmployeeDetailsService {
     this.http
       .post(this.apiUrl + "api/EmployeeDetails", empDeatils)
       .subscribe(data => {
-        this.userDetailsFlag = false;
+        this.toastr.success('Employee Details Added Successfully', 'Employee Details');
+        this.userDetailsFlag = true;
+        this.router.navigate(["/employeedetails/viewEmp"]);
+        
       });
   }
 
   getEmployeeDetails() {
     if (this.user!=null) {
       this.http
-        .get(this.apiUrl + "api/EmployeeDetails/" + this.user.EmpId)
+        .get<EmployeeDetails>(this.apiUrl + "api/EmployeeDetails/" + this.user.EmpId)
         .subscribe(data => {
           this.backupData = data;
           this.empData = this.fb.group(data);
           this.userDetailsFlag = true;
         },err=>{
-
+         
         });
     } else {
       this.empData.reset()
@@ -77,13 +84,20 @@ export class EmployeeDetailsService {
     empDeatils = this.empData.value;
     empDeatils.EmpId = this.user.EmpId;
 
+    this.toastr.success("Updated Successfully");
+    
     return this.http.put<EmployeeDetails>(
-      this.apiUrl + "api/EmployeeDetails/" + this.backupData.Id,
-      empDeatils
-    );
+      this.apiUrl + "api/EmployeeDetails/" + this.backupData.Id, empDeatils);
   }
 
   delete(){
-   return this.http.delete(this.apiUrl+ "api/EmployeeDetails/" + this.backupData.Id)
+    if(confirm('Are You Sure Want to Delete this Record')){
+      this.toastr.warning("Deleted Successfully");
+       this.http.delete(this.apiUrl+ "api/EmployeeDetails/" + this.backupData.Id).subscribe(data=>{
+         this.userDetailsFlag= false;
+         this.empData.reset();
+         this.router.navigate(["/employeedetails/"]);
+       })
+    }
   }
 }

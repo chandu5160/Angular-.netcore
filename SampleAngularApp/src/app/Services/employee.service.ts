@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { MustMatch } from "../Models/mustmatch.model";
 import { environment } from "src/environments/environment";
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +19,8 @@ export class EmployeeService {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr:ToastrService
   ) {
     this.formData = fb.group(
       {
@@ -45,7 +47,7 @@ export class EmployeeService {
   }
 
   get login() {
-    return this.formData.controls;
+    return this.logindata.controls;
   }
 
   reigterEmployee() {
@@ -58,6 +60,7 @@ export class EmployeeService {
         .post(this.apiUrl + "api/Employees", this.formData.value)
         .subscribe(data => {
           this.resetForm();
+          this.toastr.success('Registered Successfully', 'Employee Register Details');
           this.router.navigate(["/login"]);
         });
     }
@@ -77,6 +80,7 @@ export class EmployeeService {
             if (data) {
               sessionStorage.setItem("user", JSON.stringify(data));
               this.userFlag = true;
+              this.toastr.success('Signing in Successfully', 'Employee Login Details');
               this.router.navigate(["/home"]);
               this.resetForm();
             }
@@ -89,6 +93,7 @@ export class EmployeeService {
   logout() {
     sessionStorage.removeItem("user");
     this.userFlag = false;
+    this.toastr.success('Signing out Successfully', 'Employee Logout Details');
     this.router.navigate(["/login"]);
   }
 

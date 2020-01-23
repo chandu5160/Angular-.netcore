@@ -44,13 +44,6 @@ export class ViewempdetailsComponent implements OnInit {
   }
 
   delete() {
-    this._empDetailService.delete().subscribe(
-      data => {
-        this._empDetailService.userDetailsFlag = false;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this._empDetailService.delete();
   }
 }
