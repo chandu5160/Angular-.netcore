@@ -1,0 +1,36 @@
+<nav class="navbar navbar-dark"style="background-color: darkgrey">
+    <div class="nav-item toggler">  
+      <div class="nav-link navbar-toggler" type="button" role="button" style = "background-color: darkgrey" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon" ></span>
+        </div> 
+    </div>
+  
+    <div class="navbar-item">
+      <i class="fa fa-fw fa-home"
+      style="color: rgba(0,0,0,0.9);"></i>
+        <a class="nav-link" routerLink="/home">Home </a>
+    </div>
+
+        <div class="nav-item">
+          <i class="fa fa-fw fa-users"
+          style="color: rgba(0,0,0,0.9);"></i>
+          <a class="nav-link" routerLink="/employeedetails">Emp Details </a>
+        </div>
+
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <i class="fa fa-fw fa-search"
+            style="color: rgba(0,0,0,0.9);"></i>
+          </button>
+
+        </form>
+        
+        <div *ngIf="!_empService.userFlag; else elseBlock">
+          <a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+
+        </div>
+        <ng-template #elseBlock><a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></ng-template>
+        
+          
+  </nav>

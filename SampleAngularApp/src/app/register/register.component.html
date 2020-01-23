@@ -1,0 +1,68 @@
+<div class="wrapper fadeInDown formGroup"> 
+<div id="formContent">
+<form [formGroup]="_empService.formData" (ngSubmit)= "onSubmit()" autocomplete="off">
+      <div class="fadeIn first" [formGroup]= "_empService.formData">
+        <h1>Signup Form</h1>
+    </div>
+      <p>Please fill in this form to create an account.</p>
+
+      <div>
+      <input type="text" placeholder="First Name" name="FirstName" class="fadeIn first form-control" formControlName="FirstName" [ngClass]="{'is-invalid':submitted && _empService.f.FirstName.errors}">
+      <div *ngIf="submitted && _empService.f.FirstName.errors" class="invalid-feedback">
+        <div *ngIf="_empService.f.FirstName.errors.required">First Name is Required</div>
+      </div>
+    </div>
+
+    <div>
+      <input type="text" placeholder="Last Name" name="LastName" class="fadeIn first form-control" formControlName="LastName"[ngClass]="{'is-invalid':submitted && _empService.f.LastName.errors}">
+      <div *ngIf="submitted && _empService.f.LastName.errors" class="invalid-feedback">
+    <div *ngIf="_empService.f.LastName.errors.required">Last Name is Required</div>
+    </div>
+</div>
+
+    <div>
+        <label class="fadeIn second" [ngClass]="{'is-invalid':submitted && _empService.f.Gender.errors}"> 
+        <input type="radio" id="male" class="fadeIn second" formControlName="Gender" value="male" >male
+        <input type="radio" id="female" class="fadeIn second" formControlName="Gender" value="female">female<br>
+        </label>
+      <div *ngIf="_empService.f.Gender.errors" class="invalid-feedback">Gender is required</div>
+    </div>  
+      
+    <div>
+        <input type="text" placeholder="ex:-9999999999" name="Phone" class="fadeIn second form-control" formControlName="Phone" [ngClass]="{'is-invalid':submitted && _empService.f.Phone.errors}">
+        <div *ngIf="submitted && _empService.f.Phone.errors" class="invalid-feedback">
+  <div *ngIf="_empService.f.Phone.errors.required">Phone Number is Required</div>
+        </div>
+      </div>
+
+      <div>
+      <input type="text" placeholder="ex:-example@gmail.com" name="Email" class="fadeIn second form-control" formControlName="Email" [ngClass]="{'is-invalid':submitted && _empService.f.Email.errors}">
+      <div *ngIf="submitted && _empService.f.Email.errors" class="invalid-feedback">
+<div *ngIf="_empService.f.Email.errors.required">Email is Required</div>
+      </div>
+    </div>
+     
+  <div>
+      <input type="Password" placeholder="Enter Password" name="Password" class="fadeIn third form-control" formControlName="Password"[ngClass]="{'is-invalid':submitted && _empService.f.Password.errors}">
+      <div *ngIf="submitted && _empService.f.Password.errors" class="invalid-feedback">
+<div *ngIf="_empService.f.Password.errors.required">Password is Required</div>
+      </div>
+    </div>
+  
+    <div>
+      <input type="Password" placeholder="Confirm Password" class="fadeIn third form-control" name="ConfirmPassword" formControlName="ConfirmPassword"[ngClass]="{'is-invalid':submitted && _empService.f.ConfirmPassword.errors}">
+      <div *ngIf="submitted && _empService.f.ConfirmPassword.errors" class="invalid-feedback">
+<div *ngIf="_empService.f.ConfirmPassword.errors.required">Confirm Password is Required</div>
+<div *ngIf="_empService.f.ConfirmPassword.errors.mustmatch">Passwords Must Match</div>
+</div>
+    </div>
+
+      <input type="submit" class="fadeIn fourth" >
+        
+      <div class="d-flex justify-content-center links fadeIn fourth">
+            Already have an account? <a routerLink="/login" class="ml-2">Sign In</a>
+        </div>
+  </form>
+</div>
+</div>
+  

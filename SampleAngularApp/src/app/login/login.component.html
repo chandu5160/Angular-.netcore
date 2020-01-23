@@ -1,0 +1,40 @@
+<div class="wrapper fadeInDown formGroup">
+    <div id="formContent">
+<form [formGroup]="_empService.logindata" (ngSubmit)= "onSubmit()">
+    <div class="fadeIn first" >
+        <h1>Login Form</h1>
+    </div>
+
+    <div>
+  <input type="text" placeholder="Enter Email" name="Email" class="fadeIn second form-control" formControlName="Email" [ngClass]="{'is-invalid': submitted && _empService.login.Email.errors}"><br>
+  <div *ngIf="submitted && _empService.login.Email.errors" class="invalid-feedback">
+  <div *ngIf="_empService.login.Email.errors.required">User Name is Required</div>
+  </div>
+</div>
+  
+<div>
+  <input type="Password" placeholder="Enter Password" name="Password" class="fadeIn third form-control" formControlName="Password" [ngClass]="{'is-invalid': submitted && _empService.login.Password.errors}"><br>
+  <div *ngIf="submitted && _empService.login.Password.errors" class="invalid-feedback">
+  <div *ngIf="_empService.login.Password.errors.required">Password is Required</div>
+  </div>
+</div>
+
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customControlInline">
+    <label class="custom-control-label fadeIn third" for="customControlInline" style="text-align: left;">Remember me</label>
+</div>
+  
+  <input type="submit" class="fadeIn fourth" value="Log In">
+  
+  <div class="d-flex justify-content-center links fadeIn fourth">
+    Don't have an account? <a routerLink="/register">Sign Up</a>
+  </div>
+
+  <div class="d-flex justify-content-center links fadeIn fourth">
+    <a routerLink="/register">Forgot your password?</a>
+</div>
+  
+  </form>
+
+    </div>
+</div>
