@@ -33,6 +33,9 @@ export class EmployeeDetailsService {
   }
 
   submitEmpDetail() {
+    if (this.empData.invalid) {
+      return;
+    }
     var empDeatils = new EmployeeDetails();
     empDeatils = this.empData.value;
     empDeatils.EmpId = this.user.EmpId;
@@ -58,7 +61,8 @@ export class EmployeeDetailsService {
         .subscribe(
           data => {
             this.backupData = data;
-            this.empData = this.fb.group(data);
+            this.intializeData(data);
+            // this.empData = this.fb.group(data);
             this.userDetailsFlag = true;
           },
           err => {}
@@ -95,7 +99,8 @@ export class EmployeeDetailsService {
       .subscribe(
         data => {
           this.backupData = data;
-          this.empData = this.fb.group(data);
+          this.intializeData(data);
+
           this.editflag = false;
         },
         err => {
@@ -118,13 +123,29 @@ export class EmployeeDetailsService {
     }
   }
 
+  intializeData(data) {
+    this.empData = this.fb.group({
+      DOB: [data.DOB, Validators.required],
+      Address: [data.Address, Validators.required],
+      City: [data.City, Validators.required],
+      State: [data.State, Validators.required],
+      PinCode: [
+        data.PinCode,
+        [Validators.required, Validators.maxLength(6), Validators.minLength(6)]
+      ],
+      Country: [data.Country, Validators.required]
+    });
+  }
   resetAndIntial() {
     this.empData = this.fb.group({
       DOB: ["", Validators.required],
       Address: ["", Validators.required],
       City: ["", Validators.required],
       State: ["", Validators.required],
-      PinCode: ["", Validators.required],
+      PinCode: [
+        "",
+        [Validators.required, Validators.maxLength(6), Validators.minLength(6)]
+      ],
       Country: ["", Validators.required]
     });
   }

@@ -26,10 +26,10 @@ export class EmployeeService {
       {
         FirstName: ["", Validators.required],
         LastName: ["", Validators.required],
-        Phone: ["", Validators.required],
+        Phone: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
         Gender: ["", Validators.required],
         Email: ["", [Validators.required, Validators.email]],
-        Password: ["", Validators.required],
+        Password: ["", [Validators.required, Validators.pattern("/^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/"), Validators.minLength(8)]],
         ConfirmPassword: ["", Validators.required]
       },
       {

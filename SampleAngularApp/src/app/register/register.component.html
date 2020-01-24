@@ -29,16 +29,19 @@
     </div>  
       
     <div>
-        <input type="text" placeholder="ex:-9999999999" name="Phone" class="fadeIn second form-control" formControlName="Phone" [ngClass]="{'is-invalid':submitted && _empService.f.Phone.errors}">
+        <input type="text" placeholder="9999999999" name="Phone" class="fadeIn second form-control" formControlName="Phone" [ngClass]="{'is-invalid':submitted && _empService.f.Phone.errors}">
         <div *ngIf="submitted && _empService.f.Phone.errors" class="invalid-feedback">
   <div *ngIf="_empService.f.Phone.errors.required">Phone Number is Required</div>
+  <div *ngIf="_empService.f.Phone.errors.maxlength">Maximum 10 Numbers Required</div>
+  <div *ngIf="_empService.f.Phone.errors.minlength">Minimum 10 Numbers Required</div>
         </div>
       </div>
 
       <div>
-      <input type="text" placeholder="ex:-example@gmail.com" name="Email" class="fadeIn second form-control" formControlName="Email" [ngClass]="{'is-invalid':submitted && _empService.f.Email.errors}">
+      <input type="text" placeholder="example@gmail.com" name="Email" class="fadeIn second form-control" formControlName="Email" [ngClass]="{'is-invalid':submitted && _empService.f.Email.errors}">
       <div *ngIf="submitted && _empService.f.Email.errors" class="invalid-feedback">
 <div *ngIf="_empService.f.Email.errors.required">Email is Required</div>
+<div *ngIf="_empService.f.Email.errors.email">Email Must be a valid</div>
       </div>
     </div>
      
@@ -46,6 +49,8 @@
       <input type="Password" placeholder="Enter Password" name="Password" class="fadeIn third form-control" formControlName="Password"[ngClass]="{'is-invalid':submitted && _empService.f.Password.errors}">
       <div *ngIf="submitted && _empService.f.Password.errors" class="invalid-feedback">
 <div *ngIf="_empService.f.Password.errors.required">Password is Required</div>
+<div *ngIf="_empService.f.Password.errors.minlength">Minimum 8 characters is Required</div>
+<div *ngIf="_empService.f.Password.errors.pattern">Password Must contain [A-Z], [a-z], [1-9] and one special character</div>
       </div>
     </div>
   

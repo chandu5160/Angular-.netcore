@@ -1,22 +1,22 @@
 <ng-container *ngIf="_empDetailService.userDetailsFlag; else elseTemplate">
-  <p>user details availble please check in<a  [routerLink]="[ '/employeedetails/viewEmp' ]"> view details</a></p>
+  <p>user details availble please check in<a [routerLink]="[ '/employeedetails/viewEmp' ]"> view details</a></p>
 </ng-container>
 <ng-template #elseTemplate>
- <div class="jumbotron container row col-md-8 offset-md-4">
-  <h3>Add Employee Details-Form</h3>
-  <hr>
-  <form [formGroup]="_empDetailService.empData" (ngSubmit)="onSubmit()" autocomplete="off">
+  <div class="jumbotron container row col-md-8 offset-md-4">
+    <h3>Add Employee Details-Form</h3>
+    <hr>
+    <form [formGroup]="_empDetailService.empData" (ngSubmit)="onSubmit()" autocomplete="off">
 
-    <div class="form-group" [formGroup]="_empDetailService.empData">
-      <label>DOB</label>
-      <input type="date" formControlName="DOB" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.DOB.errors }">
-      <div *ngIf="submitted && _empDetailService.f.DOB.errors" class="invalid-feedback">
-        <div *ngIf="_empDetailService.f.DOB.errors.required">Date of Birth is required</div>
+      <div class="form-group" [formGroup]="_empDetailService.empData">
+        <label>DOB</label>
+        <input type="date" formControlName="DOB" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.DOB.errors }">
+        <div *ngIf="submitted && _empDetailService.f.DOB.errors" class="invalid-feedback">
+          <div *ngIf="_empDetailService.f.DOB.errors.required">Date of Birth is required</div>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group" [formGroup]="_empDetailService.empData">
+      <div class="form-group" [formGroup]="_empDetailService.empData">
         <label>Address</label>
         <textarea formControlName="Address" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.Address.errors }"></textarea>
@@ -26,48 +26,50 @@
       </div>
 
       <div class="row">
-      <div class="form-group col-md-6" [formGroup]="_empDetailService.empData">
-        <label>City</label>
-        <input type="text" formControlName="City" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.City.errors }">
-        <div *ngIf="submitted && _empDetailService.f.City.errors" class="invalid-feedback">
-          <div *ngIf="_empDetailService.f.City.errors.required">City is required</div>
+        <div class="form-group col-md-6" [formGroup]="_empDetailService.empData">
+          <label>City</label>
+          <input type="text" formControlName="City" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.City.errors }">
+          <div *ngIf="submitted && _empDetailService.f.City.errors" class="invalid-feedback">
+            <div *ngIf="_empDetailService.f.City.errors.required">City is required</div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-6" [formGroup]="_empDetailService.empData">
+          <label>State</label>
+          <input type="text" formControlName="State" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.State.errors }">
+          <div *ngIf="submitted && _empDetailService.f.State.errors" class="invalid-feedback">
+            <div *ngIf="_empDetailService.f.State.errors.required">State is required</div>
+          </div>
         </div>
       </div>
 
-      <div class="form-group col-md-6" [formGroup]="_empDetailService.empData">
-        <label>State</label>
-        <input type="text" formControlName="State" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.State.errors }">
-        <div *ngIf="submitted && _empDetailService.f.State.errors" class="invalid-feedback">
-          <div *ngIf="_empDetailService.f.State.errors.required">State is required</div>
+      <div class="row">
+        <div class="form-group col-md-6" [formGroup]="_empDetailService.empData">
+          <label>PinCode</label>
+          <input type="tel" formControlName="PinCode" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.PinCode.errors }">
+          <div *ngIf="submitted && _empDetailService.f.PinCode.errors" class="invalid-feedback">
+            <div *ngIf="_empDetailService.f.PinCode.errors.required">PinCode is required</div>
+            <div *ngIf="_empDetailService.f.PinCode.errors.maxlength">Maximum 6 numbers Required</div>
+            <div *ngIf="_empDetailService.f.PinCode.errors.minlength">Minimum 6 numbers Required</div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="form-group col-md-6" [formGroup]="_empDetailService.empData">
-        <label>PinCode</label>
-        <input type="tel" formControlName="PinCode" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.PinCode.errors }">
-        <div *ngIf="submitted && _empDetailService.f.PinCode.errors" class="invalid-feedback">
-          <div *ngIf="_empDetailService.f.PinCode.errors.required">PinCode is required</div>
+        <div class="form-group col-md-6" [formGroup]="_empDetailService.empData">
+          <label>Country</label>
+          <input type="text" formControlName="Country" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.Country.errors }">
+          <div *ngIf="submitted && _empDetailService.f.Country.errors" class="invalid-feedback">
+            <div *ngIf="_empDetailService.f.Country.errors.required">Country is required</div>
+          </div>
         </div>
       </div>
-
-      <div class="form-group col-md-6" [formGroup]="_empDetailService.empData">
-        <label>Country</label>
-        <input type="text" formControlName="Country" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.Country.errors }">
-        <div *ngIf="submitted && _empDetailService.f.Country.errors" class="invalid-feedback">
-          <div *ngIf="_empDetailService.f.Country.errors.required">Country is required</div>
-        </div>
-      </div>
-    </div>
 
       <input type="submit" class="form-control btn btn-success" value="submit">
-<small> NOTE : User can update in View Employee Details section</small>
-  </form>
+      <small> NOTE : User can update in View Employee Details section</small>
+    </form>
 
-</div>
+  </div>
 </ng-template>

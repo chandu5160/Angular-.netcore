@@ -55,6 +55,8 @@
             [ngClass]="{ 'is-invalid': submitted && _empDetailService.f.PinCode.errors }">
           <div *ngIf="submitted && _empDetailService.f.PinCode.errors" class="invalid-feedback">
             <div *ngIf="_empDetailService.f.PinCode.errors.required">PinCode is required</div>
+            <div *ngIf="_empDetailService.f.PinCode.errors.maxlength">Maximum 6 numbers Required</div>
+            <div *ngIf="_empDetailService.f.PinCode.errors.minlength">Minimum 6 numbers Required</div>
           </div>
         </div>
   
