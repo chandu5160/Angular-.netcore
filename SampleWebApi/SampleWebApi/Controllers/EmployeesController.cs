@@ -79,7 +79,7 @@ namespace SampleWebApi.Controllers
             {
                     return Ok(user);
             }
-            return NotFound();
+            return Ok("Error");
 
         }
 
