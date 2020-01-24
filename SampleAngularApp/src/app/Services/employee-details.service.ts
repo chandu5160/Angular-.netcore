@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { EmployeeDetails } from "../Models/employee-details.model";
 import { Observable } from "rxjs";
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from "ngx-toastr";
 // import 'rxjs/add/operator/catch';
 
 @Injectable({
@@ -17,21 +17,14 @@ export class EmployeeDetailsService {
   user = JSON.parse(sessionStorage.getItem("user"));
   readonly apiUrl = environment.apiUrl;
   userDetailsFlag: boolean = false;
-  employedet:EmployeeDetails;
+  employedet: EmployeeDetails;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    private toastr:ToastrService
+    private toastr: ToastrService
   ) {
-    this.empData = fb.group({
-      DOB: ["", Validators.required],
-      Address: ["", Validators.required],
-      City: ["", Validators.required],
-      State: ["", Validators.required],
-      PinCode: ["", Validators.required],
-      Country: ["", Validators.required]
-    });
+   this.resetAndIntial();
   }
 
   get f() {
@@ -42,36 +35,39 @@ export class EmployeeDetailsService {
     var empDeatils = new EmployeeDetails();
     empDeatils = this.empData.value;
     empDeatils.EmpId = this.user.EmpId;
-
     this.http
       .post(this.apiUrl + "api/EmployeeDetails", empDeatils)
       .subscribe(data => {
-        this.toastr.success('Employee Details Added Successfully', 'Employee Details');
+        this.toastr.success(
+          "Employee Details Added Successfully",
+          "Employee Details"
+        );
         this.userDetailsFlag = true;
         this.router.navigate(["/employeedetails/viewEmp"]);
-        
       });
   }
 
   getEmployeeDetails() {
-    if (this.user!=null) {
+    if (this.user != null) {
       this.http
-        .get<EmployeeDetails>(this.apiUrl + "api/EmployeeDetails/" + this.user.EmpId)
-        .subscribe(data => {
-          this.backupData = data;
-          this.empData = this.fb.group(data);
-          this.userDetailsFlag = true;
-        },err=>{
-         
-        });
+        .get<EmployeeDetails>(
+          this.apiUrl + "api/EmployeeDetails/" + this.user.EmpId
+        )
+        .subscribe(
+          data => {
+            this.backupData = data;
+            this.empData = this.fb.group(data);
+            this.userDetailsFlag = true;
+          },
+          err => {}
+        );
     } else {
-      this.empData.reset()
+         this.resetAndIntial();
       this.userDetailsFlag = false;
     }
   }
 
   cancelAndResetData() {
-    console.log(this.backupData);
     this.empData = this.fb.group(this.backupData);
   }
 
@@ -85,19 +81,35 @@ export class EmployeeDetailsService {
     empDeatils.EmpId = this.user.EmpId;
 
     this.toastr.success("Updated Successfully");
-    
+
     return this.http.put<EmployeeDetails>(
-      this.apiUrl + "api/EmployeeDetails/" + this.backupData.Id, empDeatils);
+      this.apiUrl + "api/EmployeeDetails/" + this.backupData.Id,
+      empDeatils
+    );
   }
 
-  delete(){
-    if(confirm('Are You Sure Want to Delete this Record')){
+  delete() {
+    if (confirm("Are You Sure Want to Delete this Record")) {
       this.toastr.warning("Deleted Successfully");
-       this.http.delete(this.apiUrl+ "api/EmployeeDetails/" + this.backupData.Id).subscribe(data=>{
-         this.userDetailsFlag= false;
-         this.empData.reset();
-         this.router.navigate(["/employeedetails/"]);
-       })
+      this.http
+        .delete(this.apiUrl + "api/EmployeeDetails/" + this.backupData.Id)
+        .subscribe(data => {
+          this.userDetailsFlag = false;
+
+          this.router.navigate(["/employeedetails/"]);
+             this.resetAndIntial();
+        });
     }
+  }
+
+  resetAndIntial() {
+    this.empData = this.fb.group({
+      DOB: ["", Validators.required],
+      Address: ["", Validators.required],
+      City: ["", Validators.required],
+      State: ["", Validators.required],
+      PinCode: ["", Validators.required],
+      Country: ["", Validators.required]
+    });
   }
 }
