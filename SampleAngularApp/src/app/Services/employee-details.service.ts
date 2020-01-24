@@ -14,6 +14,7 @@ import { ToastrService } from "ngx-toastr";
 export class EmployeeDetailsService {
   empData: FormGroup;
   backupData;
+  editflag: boolean = false;
   user = JSON.parse(sessionStorage.getItem("user"));
   readonly apiUrl = environment.apiUrl;
   userDetailsFlag: boolean = false;
@@ -24,7 +25,7 @@ export class EmployeeDetailsService {
     private http: HttpClient,
     private toastr: ToastrService
   ) {
-   this.resetAndIntial();
+    this.resetAndIntial();
   }
 
   get f() {
@@ -35,6 +36,7 @@ export class EmployeeDetailsService {
     var empDeatils = new EmployeeDetails();
     empDeatils = this.empData.value;
     empDeatils.EmpId = this.user.EmpId;
+
     this.http
       .post(this.apiUrl + "api/EmployeeDetails", empDeatils)
       .subscribe(data => {
@@ -62,12 +64,15 @@ export class EmployeeDetailsService {
           err => {}
         );
     } else {
-         this.resetAndIntial();
+      this.resetAndIntial();
       this.userDetailsFlag = false;
     }
   }
-
+  edit() {
+    this.editflag = true;
+  }
   cancelAndResetData() {
+    this.editflag = false;
     this.empData = this.fb.group(this.backupData);
   }
 
@@ -82,10 +87,21 @@ export class EmployeeDetailsService {
 
     this.toastr.success("Updated Successfully");
 
-    return this.http.put<EmployeeDetails>(
-      this.apiUrl + "api/EmployeeDetails/" + this.backupData.Id,
-      empDeatils
-    );
+    this.http
+      .put<EmployeeDetails>(
+        this.apiUrl + "api/EmployeeDetails/" + this.backupData.Id,
+        empDeatils
+      )
+      .subscribe(
+        data => {
+          this.backupData = data;
+          this.empData = this.fb.group(data);
+          this.editflag = false;
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 
   delete() {
@@ -97,7 +113,7 @@ export class EmployeeDetailsService {
           this.userDetailsFlag = false;
 
           this.router.navigate(["/employeedetails/"]);
-             this.resetAndIntial();
+          this.resetAndIntial();
         });
     }
   }

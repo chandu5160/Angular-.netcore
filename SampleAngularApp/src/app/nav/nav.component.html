@@ -17,14 +17,6 @@
           <a class="nav-link" routerLink="/employeedetails">Emp Details </a>
         </div>
 
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            <i class="fa fa-fw fa-search"
-            style="color: rgba(0,0,0,0.9);"></i>
-          </button>
-
-        </form>
         
         <div *ngIf="!_empService.userFlag; else elseBlock">
           <a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Login</a>

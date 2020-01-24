@@ -24,23 +24,16 @@ export class ViewempdetailsComponent implements OnInit {
   }
 
   edit() {
-    this.editflag = true;
+    this._empDetailService.edit();
   }
 
   cancel() {
-    this.editflag = false;
+    
     this._empDetailService.cancelAndResetData();
   }
 
   update() {
-    this._empDetailService.update().subscribe(
-      data => {
-        this.editflag = false;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this._empDetailService.update();
   }
 
   delete() {

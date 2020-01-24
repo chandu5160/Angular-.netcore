@@ -55,6 +55,7 @@ namespace SampleWebApi.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                return Ok(employeeDetails);
             }
             catch (DbUpdateConcurrencyException)
             {
