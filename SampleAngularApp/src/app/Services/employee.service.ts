@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { MustMatch } from "../Models/mustmatch.model";
 import { environment } from "src/environments/environment";
 import { ToastrService } from 'ngx-toastr';
+import { BnNgIdleService } from "bn-ng-idle";
 
 @Injectable({
   providedIn: "root"
@@ -20,6 +21,7 @@ export class EmployeeService {
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
+    private bnIdle: BnNgIdleService,
     private toastr:ToastrService
   ) {
     this.formData = fb.group(
@@ -81,8 +83,9 @@ export class EmployeeService {
               sessionStorage.setItem("user", JSON.stringify(data));
               this.userFlag = true;
               this.toastr.success('Signing in Successfully', 'Employee Login Details');
-              this.router.navigate(["/home"]);
+              this.router.navigate([""]);
               this.resetForm();
+              this.serverTimeOut();
             }
           },
           err => {
@@ -97,6 +100,19 @@ export class EmployeeService {
     this.userFlag = false;
     this.toastr.success('Signing out Successfully', 'Employee Logout Details');
     this.router.navigate(["/login"]);
+  }
+
+  serverTimeOut(){
+    var user = JSON.parse(sessionStorage.getItem("user"));
+    if (user != null) {
+      this.bnIdle.startWatching(60).subscribe(res => {
+        if (res) {
+          console.log("hello");
+          this.logout();
+          this.bnIdle.stopTimer();
+        }
+      });
+    }
   }
 
   resetForm() {

@@ -14,7 +14,7 @@ export class NavComponent implements OnInit {
       this._empService.userFlag = true;
     }
   }
-  logout(){
+  logout() {
     this._empService.logout();
     this.ngOnInit();
   }

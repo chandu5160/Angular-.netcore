@@ -62,7 +62,6 @@ export class EmployeeDetailsService {
           data => {
             this.backupData = data;
             this.intializeData(data);
-            // this.empData = this.fb.group(data);
             this.userDetailsFlag = true;
           },
           err => {}

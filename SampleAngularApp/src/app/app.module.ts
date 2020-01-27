@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BnNgIdleService } from "bn-ng-idle";
 
 import { AppComponent } from "./app.component";
 import { EmployeeService } from "./Services/employee.service";
@@ -24,7 +25,12 @@ import { EmployeeDetailsService } from "./Services/employee-details.service";
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [EmployeeService, AuthguardService, EmployeeDetailsService],
+  providers: [
+    EmployeeService,
+    AuthguardService,
+    EmployeeDetailsService,
+    BnNgIdleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
