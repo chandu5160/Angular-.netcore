@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SampleWebApi.Models;
@@ -17,28 +15,28 @@ namespace SampleWebApi.Controllers
 
         public EmployeeDetailsController(EmployeeContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         // GET: api/EmployeeDetails
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EmployeeDetails>>> GetEmployeeDetails()
         {
-            return await _context.EmployeeDetails.ToListAsync();
+            return await this._context.EmployeeDetails.ToListAsync();
         }
 
         // GET: api/EmployeeDetails/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmployeeDetails(int id)
+        public IActionResult GetEmployeeDetails(int id)
         {
-            var employeeDetails =  _context.EmployeeDetails.SingleOrDefault(e=> e.EmpId ==id);
+            var employeeDetails = this._context.EmployeeDetails.SingleOrDefault(e => e.EmpId == id);
 
             if (employeeDetails == null)
             {
-                return  Ok("data not found");
+                return this.Ok("data not found");
             }
 
-            return Ok(employeeDetails);
+            return this.Ok(employeeDetails);
         }
 
         // PUT: api/EmployeeDetails/5
@@ -47,60 +45,58 @@ namespace SampleWebApi.Controllers
         {
             if (id != employeeDetails.Id)
             {
-                return BadRequest();
+                return this.BadRequest();
             }
 
-            _context.Entry(employeeDetails).State = EntityState.Modified;
+            this._context.Entry(employeeDetails).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
-                return Ok(employeeDetails);
+                await this._context.SaveChangesAsync();
+                return this.Ok(employeeDetails);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeDetailsExists(id))
+                if (!this.EmployeeDetailsExists(id))
                 {
-                    return NotFound();
+                    return this.NotFound();
                 }
                 else
                 {
                     throw;
                 }
             }
-
-            return NoContent();
         }
 
         // POST: api/EmployeeDetails
         [HttpPost]
         public async Task<ActionResult<EmployeeDetails>> PostEmployeeDetails(EmployeeDetails employeeDetails)
         {
-            _context.EmployeeDetails.Add(employeeDetails);
-            await _context.SaveChangesAsync();
+            this._context.EmployeeDetails.Add(employeeDetails);
+            await this._context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEmployeeDetails", new { id = employeeDetails.Id }, employeeDetails);
+            return this.Ok(employeeDetails);
         }
 
         // DELETE: api/EmployeeDetails/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<EmployeeDetails>> DeleteEmployeeDetails(int id)
         {
-            var employeeDetails = await _context.EmployeeDetails.FindAsync(id);
+            var employeeDetails = await this._context.EmployeeDetails.FindAsync(id);
             if (employeeDetails == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            _context.EmployeeDetails.Remove(employeeDetails);
-            await _context.SaveChangesAsync();
+            this._context.EmployeeDetails.Remove(employeeDetails);
+            await this._context.SaveChangesAsync();
 
             return employeeDetails;
         }
 
         private bool EmployeeDetailsExists(int id)
         {
-            return _context.EmployeeDetails.Any(e => e.Id == id);
+            return this._context.EmployeeDetails.Any(e => e.Id == id);
         }
     }
 }

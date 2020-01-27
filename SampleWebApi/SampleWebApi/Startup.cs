@@ -32,8 +32,11 @@ namespace SampleWebApi
             {
                 var resolver = opt.SerializerSettings.ContractResolver;
                 if (resolver != null)
+                {
                     (resolver as DefaultContractResolver).NamingStrategy = null;
+                }
             });
+
             services.AddDbContext<EmployeeContext>(options =>
            options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
             services.AddCors();
@@ -46,24 +49,15 @@ namespace SampleWebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseCors(builder =>
                     builder.WithOrigins("http://localhost:4200")
                         .AllowAnyOrigin()
                         .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        );
-
-            //app.Use(async (ctx, next) =>
-            //{
-            //    await next();
-            //    if (ctx.Response.StatusCode == 204)
-            //    {
-            //        ctx.Response.ContentLength = 0;
-            //    }
-            //});
-
+                        .AllowAnyMethod());
 
             app.UseHttpsRedirection();
+
             app.UseMvc();
         }
     }

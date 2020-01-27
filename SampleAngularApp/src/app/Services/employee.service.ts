@@ -31,7 +31,7 @@ export class EmployeeService {
         Phone: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
         Gender: ["", Validators.required],
         Email: ["", [Validators.required, Validators.email]],
-        Password: ["", [Validators.required, Validators.pattern("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/"), Validators.minLength(8)]],
+        Password: ["", [Validators.required, Validators.pattern("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$"), Validators.minLength(8)]],
         ConfirmPassword: ["", Validators.required]
       },
       {
@@ -64,6 +64,8 @@ export class EmployeeService {
           this.resetForm();
           this.toastr.success('Registered Successfully', 'Employee Register Details');
           this.router.navigate(["/login"]);
+        },err=>{
+          this.toastr.warning( 'Email/Phone number already exists','Registered Failed');
         });
     }
   }

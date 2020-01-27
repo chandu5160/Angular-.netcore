@@ -107,7 +107,7 @@ export class EmployeeDetailsService {
         }
       );
   }
-
+ 
   delete() {
     if (confirm("Are You Sure Want to Delete this Record")) {
       this.toastr.warning("Deleted Successfully");
@@ -120,6 +120,7 @@ export class EmployeeDetailsService {
           this.resetAndIntial();
         });
     }
+   
   }
 
   intializeData(data) {

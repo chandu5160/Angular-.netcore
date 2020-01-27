@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SampleWebApi.FluentApiConfig;
 
-
 namespace SampleWebApi.Models
 {
     public class EmployeeContext : DbContext
     {
-        public EmployeeContext(DbContextOptions<EmployeeContext> options) : base(options)
+        public EmployeeContext(DbContextOptions<EmployeeContext> options)
+            : base(options)
         {
-
         }
 
         public DbSet<Employee> Employees { get; set; }

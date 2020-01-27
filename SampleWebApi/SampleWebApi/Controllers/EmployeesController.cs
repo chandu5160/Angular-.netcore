@@ -17,25 +17,25 @@ namespace SampleWebApi.Controllers
 
         public EmployeesController(EmployeeContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            return await this._context.Employees.ToListAsync();
         }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = await this._context.Employees.FindAsync(id);
 
             if (employee == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
             return employee;
@@ -47,20 +47,20 @@ namespace SampleWebApi.Controllers
         {
             if (id != employee.EmpId)
             {
-                return BadRequest();
+                return this.BadRequest();
             }
 
-            _context.Entry(employee).State = EntityState.Modified;
+            this._context.Entry(employee).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await this._context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeExists(id))
+                if (!this.EmployeeExists(id))
                 {
-                    return NotFound();
+                    return this.NotFound();
                 }
                 else
                 {
@@ -68,50 +68,50 @@ namespace SampleWebApi.Controllers
                 }
             }
 
-            return NoContent();
+            return this.NoContent();
         }
 
         [HttpPost("login")]
         public IActionResult GetEmployeeDataForLogin(Employee employee)
         {
-            var user = _context.Employees.SingleOrDefault(e => e.Email == employee.Email && e.Password ==employee.Password);
+            var user = this._context.Employees.SingleOrDefault(e => e.Email == employee.Email && e.Password == employee.Password);
             if (user != null)
             {
-                    return Ok(user);
+                    return this.Ok(user);
             }
-            return Ok("Error");
 
+            return this.Ok("Error");
         }
 
         // POST: api/Employees
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
+            this._context.Employees.Add(employee);
+            await this._context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEmployee", new { id = employee.EmpId }, employee);
+            return this.Ok(employee);
         }
 
         // DELETE: api/Employees/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = await this._context.Employees.FindAsync(id);
             if (employee == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
+            this._context.Employees.Remove(employee);
+            await this._context.SaveChangesAsync();
 
             return employee;
         }
 
         private bool EmployeeExists(int id)
         {
-            return _context.Employees.Any(e => e.EmpId == id);
+            return this._context.Employees.Any(e => e.EmpId == id);
         }
     }
 }

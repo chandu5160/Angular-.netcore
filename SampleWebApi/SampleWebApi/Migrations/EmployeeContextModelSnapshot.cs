@@ -40,6 +40,12 @@ namespace SampleWebApi.Migrations
 
                     b.HasKey("EmpId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
                     b.ToTable("Employees");
                 });
 

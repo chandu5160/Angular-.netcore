@@ -7,7 +7,7 @@ namespace SampleWebApi.Models
 {
     public class ErrorResponse
     {
-        public string  Status { get; set; }
+        public string Status { get; set; }
 
         public string ErrorMessage { get; set; }
     }

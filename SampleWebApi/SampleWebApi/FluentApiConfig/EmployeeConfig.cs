@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SampleWebApi.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SampleWebApi.Models;
 
 namespace SampleWebApi.FluentApiConfig
 {
@@ -28,8 +24,14 @@ namespace SampleWebApi.FluentApiConfig
                .IsRequired()
                .HasColumnType("bigint");
             entityBuilder
+                .HasIndex(e => e.Phone)
+                .IsUnique();
+            entityBuilder
                .Property(e => e.Email)
                .IsRequired();
+            entityBuilder
+                .HasIndex(e => e.Email)
+                .IsUnique();
             entityBuilder
                .Property(e => e.Password)
                .IsRequired();
