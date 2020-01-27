@@ -36,6 +36,7 @@ export class EmployeeDetailsService {
     if (this.empData.invalid) {
       return;
     }
+
     var empDeatils = new EmployeeDetails();
     empDeatils = this.empData.value;
     empDeatils.EmpId = this.user.EmpId;
@@ -81,15 +82,13 @@ export class EmployeeDetailsService {
 
   update(): Observable<EmployeeDetails> {
     if (this.empData.invalid) {
-
       return;
     }
+
     var empDeatils = new EmployeeDetails();
     empDeatils = this.empData.value;
     empDeatils.Id = this.backupData.Id;
     empDeatils.EmpId = this.user.EmpId;
-
-
 
     this.http
       .put<EmployeeDetails>(
@@ -127,18 +126,16 @@ export class EmployeeDetailsService {
   }
 
   intializeData(data) {
-    this.empData = this.fb.group({
-      DOB: [data.DOB, Validators.required],
-      Address: [data.Address, Validators.required],
-      City: [data.City, Validators.required],
-      State: [data.State, Validators.required],
-      PinCode: [
-        data.PinCode,
-        [Validators.required, Validators.maxLength(6), Validators.minLength(6)]
-      ],
-      Country: [data.Country, Validators.required]
+    this.empData.setValue({
+      DOB: data.DOB,
+      Address: data.Address,
+      City: data.City,
+      State: data.State,
+      PinCode: data.PinCode,
+      Country: data.Country
     });
   }
+
   resetAndIntial() {
     this.empData = this.fb.group({
       DOB: ["", Validators.required],
