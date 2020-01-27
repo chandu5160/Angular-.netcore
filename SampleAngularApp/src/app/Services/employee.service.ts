@@ -22,7 +22,7 @@ export class EmployeeService {
     private router: Router,
     private http: HttpClient,
     private bnIdle: BnNgIdleService,
-    private toastr:ToastrService
+    private toastr: ToastrService
   ) {
     this.formData = fb.group(
       {
@@ -64,8 +64,8 @@ export class EmployeeService {
           this.resetForm();
           this.toastr.success('Registered Successfully', 'Employee Register Details');
           this.router.navigate(["/login"]);
-        },err=>{
-          this.toastr.warning( 'Email/Phone number already exists','Registered Failed');
+        }, err => {
+          this.toastr.warning('Email/Phone number already exists', 'Registered Failed');
         });
     }
   }
@@ -104,12 +104,12 @@ export class EmployeeService {
     this.router.navigate(["/login"]);
   }
 
-  serverTimeOut(){
+  serverTimeOut() {
     var user = JSON.parse(sessionStorage.getItem("user"));
     if (user != null) {
       this.bnIdle.startWatching(60).subscribe(res => {
         if (res) {
-          console.log("hello");
+          this.toastr.warning('Session timed out');
           this.logout();
           this.bnIdle.stopTimer();
         }

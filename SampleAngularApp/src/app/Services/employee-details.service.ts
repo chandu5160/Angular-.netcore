@@ -64,7 +64,7 @@ export class EmployeeDetailsService {
             this.intializeData(data);
             this.userDetailsFlag = true;
           },
-          err => {}
+          err => { }
         );
     } else {
       this.resetAndIntial();
@@ -81,14 +81,15 @@ export class EmployeeDetailsService {
 
   update(): Observable<EmployeeDetails> {
     if (this.empData.invalid) {
+
       return;
     }
-
     var empDeatils = new EmployeeDetails();
     empDeatils = this.empData.value;
+    empDeatils.Id = this.backupData.Id;
     empDeatils.EmpId = this.user.EmpId;
 
-    this.toastr.success("Updated Successfully");
+
 
     this.http
       .put<EmployeeDetails>(
@@ -97,6 +98,8 @@ export class EmployeeDetailsService {
       )
       .subscribe(
         data => {
+          this.toastr.success("Updated Successfully");
+          console.log(data);
           this.backupData = data;
           this.intializeData(data);
 
@@ -107,7 +110,7 @@ export class EmployeeDetailsService {
         }
       );
   }
- 
+
   delete() {
     if (confirm("Are You Sure Want to Delete this Record")) {
       this.toastr.warning("Deleted Successfully");
@@ -120,7 +123,7 @@ export class EmployeeDetailsService {
           this.resetAndIntial();
         });
     }
-   
+
   }
 
   intializeData(data) {

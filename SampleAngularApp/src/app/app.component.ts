@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { EmployeeService } from './Services/employee.service';
+import { EmployeeService } from "./Services/employee.service";
 
 @Component({
   selector: "app-root",
@@ -8,7 +8,7 @@ import { EmployeeService } from './Services/employee.service';
 })
 export class AppComponent {
   title = "newapp";
-  constructor(private _empService:EmployeeService) {
+  constructor(private _empService: EmployeeService) {
     _empService.serverTimeOut();
   }
 }
