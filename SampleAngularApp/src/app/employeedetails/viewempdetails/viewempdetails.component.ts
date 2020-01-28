@@ -11,7 +11,7 @@ export class ViewempdetailsComponent implements OnInit {
   editflag: boolean = false;
   dataCopy;
 
-  constructor(private _empDetailService: EmployeeDetailsService) {}
+  constructor(public _empDetailService: EmployeeDetailsService) {}
 
   ngOnInit() {
     this._empDetailService.getEmployeeDetails();

@@ -9,7 +9,7 @@ import { EmployeeService } from "../Services/employee.service";
 export class LoginComponent implements OnInit {
   submitted: boolean = false;
 
-  constructor(private _empService: EmployeeService) { }
+  constructor(public _empService: EmployeeService) { }
 
   ngOnInit() { }
   onSubmit() {

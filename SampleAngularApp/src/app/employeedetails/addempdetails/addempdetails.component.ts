@@ -10,7 +10,7 @@ import { EmployeeDetailsService } from "src/app/Services/employee-details.servic
 export class AddempdetailsComponent implements OnInit {
   submitted = false;
 
-  constructor(private _empDetailService: EmployeeDetailsService) {}
+  constructor(public _empDetailService: EmployeeDetailsService) {}
 
   ngOnInit() {
    this._empDetailService.getEmployeeDetails();

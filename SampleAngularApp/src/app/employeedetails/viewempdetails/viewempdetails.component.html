@@ -1,11 +1,9 @@
 <ng-container *ngIf="!_empDetailService.userDetailsFlag; else elseTemplate">
   <p>Please add <a  [routerLink]="[ '/employeedetails/' ]">User Details</a> </p>
 </ng-container>
+
+
 <ng-template #elseTemplate>
-  
-
-
-
 <div class="jumbotron container row col-md-8 offset-md-4">
     <h3>View Employee Details-Form</h3>
     <form  (ngSubmit)="onSubmit()" autocomplete="off" [formGroup]="_empDetailService.empData">
